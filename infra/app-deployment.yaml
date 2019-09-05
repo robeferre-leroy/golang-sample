@@ -1,0 +1,19 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: golang-backend
+  labels:
+    app: golang-backend
+spec:
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: golang
+    spec:
+      containers:
+        - image: gcr.io/devops-terraform-admin-001/golang-demo:v1
+          name: jagged-aliance
+          ports:
+            - containerPort: 3000
