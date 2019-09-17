@@ -16,4 +16,4 @@ spec:
         - image: gcr.io/devops-terraform-admin-001/golang-demo:v1
           name: jagged-aliance
           ports:
-            - containerPort: 3000
+            - containerPort: 5000

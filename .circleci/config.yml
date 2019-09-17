@@ -1,11 +1,61 @@
-version: 2.0
+version: 2
 jobs:
   build:
-    docker:
-      - image: circleci/ruby:2.4.2-jessie-node
+    machine: true
     steps:
       - checkout
-      - run: echo "Hello World"
+      - run: |
+          BRANCH=`echo $CIRCLE_BRANCH | cut -d'/' -f 2`
+          docker build -t gcr.io/golang-demo:$BRANCH .
+      # - setup_remote_docker:
+      #     docker_layer_caching: true
+  test:
+    docker:
+      - image: ubuntu-1604:201903-01
+    steps:
+      - checkout
+      - run: echo 'testing here...'
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
+      - test
+
+
+# version: 2.0
+# jobs:
+#   untagged-build:
+#     jobs:
+#       - build
+#   tagged-build:
+#     jobs:
+#       - build:
+#           filters:
+#             tags:
+#               only: /^v.*/
+#   test:
+#     steps:
+#       - run: echo "Testting..."
+# workflows:
+#   version: 2
+#   dev_stage_pre-prod:
+#     jobs:
+#       - test_dev:
+#           filters:  # using regex filters requires the entire branch to match
+#             branches:
+#               only:  # only branches matching the below regex filters will run
+#                 - dev
+#                 - development
+#                 - /feature*/
+#       - test_stage:
+#           filters:
+#             branches:
+#               only: stage
+#       - test_pre-prod:
+#           filters:
+#             branches:
+#               only: /pre-prod(?:-.+)?$/
 
 # version: 2.0
 # jobs:
