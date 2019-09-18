@@ -68,7 +68,7 @@ workflows:
               only:
                 - master
                 - staging
-                - /feature*/
+                - /feature-.*/
       - test:
           requires:
             - build
@@ -82,7 +82,7 @@ workflows:
             - build
           filters:
             branches:
-              only: /feature*/
+              only: /feature-.*/
       - deploy-staging:
           requires:
             - test
