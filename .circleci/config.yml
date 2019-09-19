@@ -98,6 +98,8 @@ workflows:
           filters:
             branches:
               only: master
+              tags:
+                only: /^v.*/
 # workflows:
 #   version: 2
 #   dev_stage_pre-prod:
